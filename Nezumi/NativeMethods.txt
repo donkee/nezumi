@@ -1,0 +1,8 @@
+GetCursorPos
+WindowFromPoint
+SetFocus
+GetForegroundWindow
+AttachThreadInput
+GetWindowThreadProcessId
+GetCurrentThreadId
+CloseHandle
