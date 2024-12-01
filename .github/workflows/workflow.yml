@@ -1,0 +1,44 @@
+name: Build and Release Nezumi
+run-name: Build and Release Nezumi
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: 'Version of Nezumi to build and release'
+        required: true
+      notes:
+        type: string
+        description: 'Notes for this release'
+        required: false
+        
+jobs:
+  Build-and-Release-Nezumi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout  
+        uses: actions/checkout@v4
+      - name: Setup .NET 
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Build  
+        run: dotnet build -c Release
+      - name: Publish  
+        run: dotnet publish -o ./ -c Release /p:AssemblyVersion=${{ inputs.version }} /p:Version=${{ inputs.version }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nezumi
+          path: ./Nezumi.exe
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ inputs.version }}
+          release_name: Release ${{ inputs.version }}
+          body: ${{ inputs.notes }}
+          draft: false
+          prerelease: false
