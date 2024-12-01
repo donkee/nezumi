@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nezumi", "Nezumi\Nezumi.csproj", "{2373B32F-C28F-44CF-8187-D7B2BBFB3ABF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nezumi.App", "Nezumi.App\Nezumi.App.csproj", "{2373B32F-C28F-44CF-8187-D7B2BBFB3ABF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
