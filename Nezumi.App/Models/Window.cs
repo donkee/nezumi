@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Nezumi;
+namespace Nezumi.Models;
 
 public class Window
 {

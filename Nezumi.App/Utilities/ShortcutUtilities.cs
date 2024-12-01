@@ -6,8 +6,12 @@ namespace Nezumi.Utilities;
 
 public static class ShortcutUtilities
 {
-    private static readonly string StartupFolder = $@"C:\Users\{Environment.UserName}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup";
-    
+    private static readonly string StartupFolder =
+        $@"C:\Users\{Environment.UserName}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup";
+
+    /// <summary>
+    /// Creates a shortcut to Nezumi.exe in the user's startup folder.
+    /// </summary>
     public static void CreateShortcut()
     {
         var link = (IShellLink)new ShellLink();
@@ -20,17 +24,26 @@ public static class ShortcutUtilities
         var file = (IPersistFile)link;
         file.Save(Path.Combine(StartupFolder, "Nezumi.lnk"), false);
     }
-    
+
+    /// <summary>
+    /// Removes the Nezumi shortcut from the user's startup folder.
+    /// </summary>
     public static void RemoveShortcut()
     {
         File.Delete(Path.Combine(StartupFolder, "Nezumi.lnk"));
     }
-    
+
+    /// <summary>
+    /// Checks if the Nezumi shortcut exists in the user's startup folder.
+    /// </summary>
+    /// <returns>True if the shortcut exists, false otherwise.</returns>
     public static bool DoesShortcutExist()
     {
         return File.Exists(Path.Combine(StartupFolder, "Nezumi.lnk"));
     }
 }
+
+#region COM Interop
 
 [ComImport]
 [Guid("00021401-0000-0000-C000-000000000046")]
@@ -43,7 +56,9 @@ internal class ShellLink
 [Guid("000214F9-0000-0000-C000-000000000046")]
 internal interface IShellLink
 {
-    void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd, int fFlags);
+    void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd,
+        int fFlags);
+
     void GetIDList(out IntPtr ppidl);
     void SetIDList(IntPtr pidl);
     void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszName, int cchMaxName);
@@ -56,9 +71,14 @@ internal interface IShellLink
     void SetHotkey(short wHotkey);
     void GetShowCmd(out int piShowCmd);
     void SetShowCmd(int iShowCmd);
-    void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath, out int piIcon);
+
+    void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath,
+        out int piIcon);
+
     void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
     void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, int dwReserved);
     void Resolve(IntPtr hwnd, int fFlags);
     void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
 }
+
+#endregion COM Interop

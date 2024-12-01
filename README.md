@@ -1,3 +1,15 @@
-[Jeezy beat me to it](https://github.com/LGUG2Z/masir) (I did solve some problems by looking at his code, though).
+![Nezumi](Nezumi.App/Resources/mouse.png "Nezumi")
 
-[Rodent icons">Rodent icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/rodent)
+# Nezumi
+
+This is a simple focus-follows-mouse application. This offers a tray icon that can be used to autostart the application.
+
+## TODO:
+- [ ] Add config file parsing
+- [ ] Add logging
+
+> [!NOTE]
+> Thanks to [Jeezy](https://github.com/LGUG2Z/masir) for some pointers and ideas.
+
+> [!IMPORTANT]
+> [Rodent icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/rodent)
